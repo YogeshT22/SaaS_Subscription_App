@@ -1,0 +1,21 @@
+# docker-compose.yml
+
+services:
+  # This is the service name for our MongoDB database
+  mongo-db:
+    # We use the official MongoDB image from Docker Hub
+    image: mongo:latest
+    restart: always
+    # Environment variables for the root user of the database
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: myuser
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
+    # This maps the default MongoDB port (27017) to the same port on our host machine.
+    ports:
+      - "27017:27017"
+    # This creates a volume to persist the database data.
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
