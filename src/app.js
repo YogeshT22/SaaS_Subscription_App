@@ -1,19 +1,18 @@
-// src/app.js
-
+// importing required modules
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
-// --- Configuration ---
+// --- just a configuration and calling DB ---
 dotenv.config();
 connectDB();
 
-// --- Initialization ---
+// --- init ---
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // --- MIDDLEWARE ---
-// This middleware MUST come BEFORE your routes are defined.
+// DEVNOTE: This middleware MUST come BEFORE your routes are defined.
 // It tells Express to parse any incoming request body that is JSON.
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,12 +25,13 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/subscriptions', require('./routes/subscriptionRoutes'));
 
 
-// Simple root route for testing
+// Simple root endpoint for testing
 app.get('/', (req, res) => {
     res.json({ message: "Welcome to the SaaS Subscription App API!" });
 });
 
-// --- Server Startup ---
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

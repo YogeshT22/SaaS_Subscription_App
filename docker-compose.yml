@@ -3,7 +3,7 @@
 services:
   # This is the service name for our MongoDB database
   mongo-db:
-    # We use the official MongoDB image from Docker Hub
+    #DEVNOTE: using specific version can help avoid compatibility problem later but....
     image: mongo:latest
     restart: always
     # Environment variables for the root user of the database
@@ -11,6 +11,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: myuser
       MONGO_INITDB_ROOT_PASSWORD: mypassword
     # This maps the default MongoDB port (27017) to the same port on our host machine.
+    # no port conflicts while using specific high ports. already tired of this lol!
     ports:
       - "27017:27017"
     # This creates a volume to persist the database data.
