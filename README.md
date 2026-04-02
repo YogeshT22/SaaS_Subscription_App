@@ -6,6 +6,11 @@ This repository contains the backend source code for a SaaS (Software as a Servi
 
 The application features a secure REST API with JWT-based authentication and a full, test-mode integration with Stripe for creating subscription checkout sessions and handling payment confirmation via webhooks. The entire system is designed to be a robust foundation for any subscription-based service.
 
+---
+
+## ![Logo](src/logo.png)
+
+
 ## Core Concepts & Skills Demonstrated
 
 ### **Backend API Development (Node.js Stack)**:
@@ -39,7 +44,7 @@ The application features a secure REST API with JWT-based authentication and a f
 
 
 ## Architecture Diagram
-![alt text](src/arch-diagram.png)
+![arch-diagram](src/arch-diagram.png)
 
 _(Flow: User -> Postman -> Node.js API. Then, a separate flow: Node.js API <-> Stripe API. And a third flow: Stripe Servers -> ngrok -> Node.js API Webhook.)_
 
