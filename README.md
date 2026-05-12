@@ -1,15 +1,12 @@
 # Project: SaaS Subscription Backend with Node.js & Stripe
 
-### FINAL PROJECT VERSION: V1 - OCT 19, 2025
+### FINAL VERSION: OCT 19, 2025
 
 This repository contains the backend source code for a SaaS (Software as a Service) application built with Node.js, Express.js, and MongoDB. The project demonstrates a complete backend system for managing user accounts, authentication, and subscription payments through a third-party API, Stripe.
 
 The application features a secure REST API with JWT-based authentication and a full, test-mode integration with Stripe for creating subscription checkout sessions and handling payment confirmation via webhooks. The entire system is designed to be a robust foundation for any subscription-based service.
 
 ---
-
-## ![Logo](src/logo.png)
-
 
 ## Core Concepts & Skills Demonstrated
 
@@ -44,7 +41,47 @@ The application features a secure REST API with JWT-based authentication and a f
 
 
 ## Architecture Diagram
-![arch-diagram](src/arch-diagram.png)
+
+```mermaid
+flowchart TD
+
+    subgraph ClientLayer
+        USER["User / Postman Client"]
+    end
+
+    subgraph Backend
+        API["Node.js + Express API"]
+        AUTH["JWT Authentication Middleware"]
+        DB["MongoDB Database"]
+    end
+
+    subgraph Payments
+        STRIPE["Stripe API"]
+        WEBHOOK["Webhook Endpoint"]
+    end
+
+    subgraph Tunnel
+        NGROK["ngrok Tunnel"]
+    end
+
+    USER -->|Register / Login Requests| API
+
+    API --> AUTH
+
+    AUTH -->|Protected Routes| API
+
+    API -->|Read / Write User Data| DB
+
+    API -->|Create Checkout Session| STRIPE
+
+    STRIPE -->|Checkout URL| USER
+
+    STRIPE -->|Webhook Events| NGROK
+
+    NGROK --> WEBHOOK
+
+    WEBHOOK -->|Update Subscription Status| DB
+```
 
 _(Flow: User -> Postman -> Node.js API. Then, a separate flow: Node.js API <-> Stripe API. And a third flow: Stripe Servers -> ngrok -> Node.js API Webhook.)_
 
